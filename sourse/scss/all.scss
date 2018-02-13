@@ -112,7 +112,7 @@ nav{
     top:0;
     bottom:0;
     @include bg-fix();
-    background-image: url('/img/cloudMonster1.png');
+    background-image: url('https://i.imgur.com/zuTH08R.png');
     }
     .monsterbg{
     position: relative;
@@ -187,7 +187,7 @@ $color_green:#42C9A8;
             .cloud{
                 @include bg-fix();
                 @include size(100px,100px);
-                background-image:url('/img/suncloud.png');
+                background-image:url('https://i.imgur.com/632qouQ.png');
                 position: relative;
                 animation: flycloud 3s infinite linear both;
             }
@@ -251,7 +251,7 @@ $color_green:#42C9A8;
             .imgcity{
                 @include bg-fix();
                 transform: scale(0.8);
-                background-image: url('/img/taiwan.png');
+                background-image: url('https://i.imgur.com/MXzI6BR.png');
                 height: 200px;
                 background-repeat: no-repeat;
                 position: relative;

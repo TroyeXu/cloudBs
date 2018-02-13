@@ -132,7 +132,7 @@ gulp.task('watch', function () {
 
 
 gulp.task('imagemin', () =>
-    gulp.src('sourse/images/*')
+    gulp.src('sourse/img/*')
         .pipe($.if(options.env === 'production', $.imagemin()))
         .pipe(gulp.dest('./public/img'))
 );
