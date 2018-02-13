@@ -1,0 +1,39 @@
+.container.py-3
+    .row
+        .col-md-6
+            #map
+        .col-md-6
+            h3.text-center 夥伴們簽署對抗PM2.5!
+            p.text-muted KMT夥伴都在世界各地誓死對抗龐大空氣汙染
+            i.far.fa-hand-point-right.fa-2x
+            .fb-login-button(data-max-rows='1', data-size='medium', data-button-type='continue_with', data-show-faces='false', data-auto-logout-link='true', data-use-continue-as='false') 快速登入資料
+            form.needs-validation(novalidate='')
+                .form-group
+                    label(for="username", placeholder="王大明") 姓名
+                    input.form-control#username(type="text",placeholder="金吃五" ,required='')
+                    .valid-feedback good
+                                    
+                .form-group
+                    label(for="email") 信箱
+                    input.form-control#email(type="email", placeholder="abc@gmail.com",required='')
+                    .valid-feedback good
+                .form-group
+                    label(for="date") 生日
+                    input.form-control#date(type="text", ,placeholder="02/18/1995",required='')     
+                    .valid-feedback good                        
+
+                .form-group
+                    .form-check
+                        input#invalidCheck.form-check-input(type='checkbox', value='')
+                        label.form-check-label(for='invalidCheck') 我同意
+                        .valid-feedback You must agree before submitting.
+
+                        
+                                    
+                button.btn.btn-primary.btn-sm.btn-block(type='submit') 送出
+                button.btn.btn-secondary.btn-sm.btn-block.mb-2(type="text") 取消
+                .fb-page.text-center(data-href='https://www.facebook.com/Music-116997069120265/', data-width='500px', data-hide-cover='false', data-show-facepile='false')
+
+
+
+                

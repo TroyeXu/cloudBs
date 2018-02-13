@@ -1,0 +1,285 @@
+
+@import "functions";
+@import "helpers/variables";
+@import "mixins";
+@import "bootstrap";
+@import "compoents/timeline";
+@import url(//fonts.googleapis.com/earlyaccess/notosanstc.css);
+
+$black:#202b2c;
+$white: white;
+
+@mixin ab_center{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+
+@mixin size($w,$h){
+    width: $w;
+    height: $h;
+}
+@mixin bg-fix{
+    background-position: center center;
+    background-size: cover;
+}
+@mixin half{
+    @include size(150px,150px);
+    position: absolute;
+    background-color: rgba(white,0.2);
+    bottom:-100px;
+}
+@mixin textbgtransparent{
+        width: 100% ;
+        height: 100%;
+        background-color: rgba(0,0,0,0.35);
+        border-radius: 10px;
+        padding: 30px;    
+}
+
+//bg
+
+.bg-cover{
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow-x:hidden;
+
+}
+
+//nav
+
+nav{
+    background-color:$black;
+    transition: 0.5s;
+    .nav-link{
+        color: $white;
+    }
+    .nav-item{
+    &:after{
+        content: '';
+        display: block;
+        width: 0;
+        height: 4px;
+        background:$white;
+        transition: width .3s;
+        position: relative;
+        bottom:-8px;
+    }
+    &:hover:after{
+        width: 100%;  
+    }
+    }
+}
+@media (max-width: 767.98px) {
+    .nav-item:after {
+        content: none;
+    }
+}
+.at_top{
+    background-color:transparent  ;
+}
+
+//carousel
+.header-carousel-item{
+        min-height: 450px;
+        background-position: center bottom;
+        background-size: cover;
+    .carousel-caption{
+        background-color: rgba(0,0,0,0.35);
+        border-radius: 10px;
+    }
+}
+
+
+@media (min-width: 768px) { 
+    .text-md-dark{
+        color: black;
+    }
+}
+//home
+#home{
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    box-shadow:0 -20px 100px 30px #ffffff inset;
+
+    
+}
+//monster
+#monster{
+    .bg-ToptoBottom{
+    position: absolute;
+    top:0;
+    bottom:0;
+    @include bg-fix();
+    background-image: url('/img/cloudMonster1.png');
+    }
+    .monsterbg{
+    position: relative;
+    }
+
+}
+
+@media (max-width: 768px) { 
+    .bg-ToptoBottom{
+        filter:blur(5px);
+
+    }
+    .textbg{
+        width: 100% ;
+        height: 100%;
+        background-color: rgba(0,0,0,0.35);
+        border-radius: 10px;
+        padding: 30px;
+        
+    }
+}
+
+//taiwan
+#Taiwan{
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    box-shadow:0 10px 50px 25px #ffffff inset;
+    padding: 30px;
+}
+
+.fb{
+    top: 8px;
+}
+#map {
+        height: 100%;
+        box-shadow:3px 5px 10px 1px hsl(0, 3%, 77%) ;
+
+    }
+
+
+
+//wheather
+$color_white: #fffafa;
+$color_blue: #114c82;
+$color_yellow: #FFD633;
+$color_black: #333;
+$color_rain: #4DACFF;
+$color_white_cloud: #f2f9fe;
+$color_grey_cloud: #ccc;
+$color_green:#42C9A8;
+
+.daybox{
+    max-width: 100%;
+    background-color: $color_green;
+    color: $color_white;
+    .d_top{
+        position: relative;
+        overflow: hidden; 
+        .halfcircle1{
+            @include half();
+            right: 50px;
+        }
+        .halfcircle2{
+            @include half();
+            right: 170px;
+
+        }
+        .halfcircle3{
+            @include half();
+            right: -50px;
+        }
+        .d_data{      
+            .cloud{
+                @include bg-fix();
+                @include size(100px,100px);
+                background-image:url('/img/suncloud.png');
+                position: relative;
+                animation: flycloud 3s infinite linear both;
+            }
+            @keyframes flycloud{
+                0%{
+                    transform: translateY(0px);
+                }
+                50%{
+                    transform: translateY(-20px);
+                }
+                100%{
+                    transform: translateY(0px);
+                }
+            }
+            @mixin rain{
+                @include size(3px,10px);
+                background-color: $color_white;
+                position: absolute;
+                top: 85px;
+                right: 70px;
+                animation: raindrop 3s infinite linear both;
+
+            };
+            .rain1{
+                @include rain;
+                
+                
+            }
+            .rain2{
+                @include rain;
+                right: 50px;
+                animation-delay: 0.5s
+                
+            }
+            .rain3{
+                @include rain;
+                right: 30px;
+                animation-delay: 0.3s
+            }
+            @keyframes raindrop {
+                0%{
+                    transform: translateY(0px);
+                }
+                100%{
+                    transform: translateY(50px);
+                    opacity: 0;
+                }   
+            }                                   
+            .d_bottom{
+                font-size: 0.8rem;
+            }
+        }
+        .d_img{
+            position: absolute;
+            right: -15%;
+            top: 25%;
+            .circle{
+                background-color: lighten( $color_blue,35%);
+            }
+
+            .imgcity{
+                @include bg-fix();
+                transform: scale(0.8);
+                background-image: url('/img/taiwan.png');
+                height: 200px;
+                background-repeat: no-repeat;
+                position: relative;
+                right:12px;
+                top: -180px
+
+            }
+            
+        }
+    }
+
+}
+.d_bottom{
+    font-size: 0.8rem;
+    }
+
+
+
+.circle{
+    @include size(200px,200px);
+    background-color: $color_blue;
+}
+.bgcircle{
+    @include size(110px,110px);
+    @include bg-fix;
+    box-shadow: 0 10px 6px -6px ;
+    h3{
+        line-height: 4;
+        text-align: center;
+    }
+}
