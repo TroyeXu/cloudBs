@@ -1,8 +1,4 @@
 var gulp = require('gulp');
-// var jade = require('gulp-jade');
-// var sass = require('gulp-sass');
-// var plumber = require('gulp-plumber');
-// var postcss = require('gulp-postcss');
 var autoprefixer = require('autoprefixer');
 var $ = require('gulp-load-plugins')(); //要()
 var mainBowerFiles = require('main-bower-files');
@@ -10,24 +6,23 @@ var minimist = require('minimist')
 var browserSync = require('browser-sync').create();
 var gulpSequence = require('gulp-sequence')
 
-
+//環境變數
 var envOptions = {
     string: 'env',
     default: { env: 'develop' }
 } //傳入關鍵詞 預設develop
 var options = minimist(process.argv.slice(2), envOptions);//預設內容 利用minimist紀錄參數
-console.log(options);
-
+//clean
 gulp.task('clean', function () {
     return gulp.src(['./.tmp', './public'], { read: false })
         .pipe($.clean());
 });
 gulp.task('build', gulpSequence('clean', 'jade', 'babel', 'sass', 'vendorsJs', 'imagemin'))
 //部屬  watch browser 不用 /gulp build --env production 輸出才會壓縮
-gulp.task('default', ['jade', 'babel', 'sass', 'vendorsJs', 'browser-sync', 'imagemin', 'watch']);
-//任務合併
+gulp.task('default', ['jade', 'sass', 'babel','vendorsJs', 'browser-sync', 'imagemin', 'watch']);
+//任務合併一般
 
-
+//html
 gulp.task('copyHTML', function () {
     return gulp.src('./sourse/**/*.html')
         .pipe($.plumber())
@@ -35,27 +30,17 @@ gulp.task('copyHTML', function () {
         .pipe(gulp.dest('./public'))
         .pipe(browserSync.stream());
 })
-
-
+//jade
 gulp.task('jade', function () {
     return gulp.src('./sourse/**/*.jade')
-        // .pipe($.plumber())
-        // .pipe($.data(function (file) {
-        //     var json = require('./source/data/data.json');
-        //     var menus = require('./source/data/menu.json');
-        //     var source = {
-        //         data: json,
-        //         menus: menus
-        //     }
-        //     return source;
-        // }))
-        .pipe($.jade({
-            pretty: true
-        }))
-        .pipe(gulp.dest('./public'))
-        .pipe(browserSync.stream());
+    .pipe($.jade({
+        pretty: true
+    }))
+    .pipe($.plumber())
+    .pipe(gulp.dest('./public'))
+    .pipe(browserSync.stream());
 });
-
+//sass
 gulp.task('sass', function () {
     // PostCSS AutoPrefixer
     var processors = [
@@ -79,8 +64,7 @@ gulp.task('sass', function () {
 
 
 });
-
-
+//降轉es6
 gulp.task('babel', () => {
     return gulp.src('./sourse/js/**/*.js')
         .pipe($.plumber())
@@ -94,12 +78,12 @@ gulp.task('babel', () => {
         .pipe(gulp.dest('./public/js'))
         .pipe(browserSync.stream());
 });
-
+//bower-外部js
 gulp.task('bower', function () {
     return gulp.src(mainBowerFiles())
         .pipe(gulp.dest('./.tmp/vendors'));
 });
-
+//bowe-hotreload
 gulp.task('browser-sync', function () {
     browserSync.init({
         server: {
@@ -108,8 +92,7 @@ gulp.task('browser-sync', function () {
         reloadDebounce: 2000
     });
 });
-
-
+//bower-plugin
 gulp.task('vendorsJs', ['bower'], function () {
     return gulp.src([
         './.tmp/vendors/jquery.js',
@@ -120,27 +103,22 @@ gulp.task('vendorsJs', ['bower'], function () {
         .pipe($.if(options.env === 'production', $.uglify()))
         .pipe(gulp.dest('./public/js'));
 });
-//bower 優先執行 在執行 vendorsjs
-
+//監聽
 gulp.task('watch', function () {
     gulp.watch('./sourse/**/*.scss', ['sass']);
     gulp.watch('./sourse/**/*.jade', ['jade']);
     gulp.watch('./sourse/**/*.js', ['babel']);
 });
-//監聽
-
-
-
+//壓縮圖片
 gulp.task('imagemin', () =>
     gulp.src('sourse/img/*')
         .pipe($.if(options.env === 'production', $.imagemin()))
         .pipe(gulp.dest('./public/img'))
 );
-//壓縮圖片
-
+//發布githubpage
 gulp.task('deploy', function () {
     return gulp.src('./public/**/*')
         .pipe($.ghPages());
 });
-//發部githubpage
+
 
